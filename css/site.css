@@ -294,6 +294,18 @@ p{margin:0 0 1.2em}
 .intro .sq1{--tx:-90px;--sc:0;--rot:-120deg;animation-delay:1s}
 .intro .sq2{--ty:90px;--sc:0;--rot:120deg;animation-delay:1.12s}
 .intro .sq3{--ty:90px;--sc:0;--rot:120deg;animation-delay:1.24s}
-.intro .ibrand{margin-top:34px;font-family:var(--serif);font-weight:700;letter-spacing:.34em;text-transform:uppercase;color:#f3ede1;font-size:1.05rem;opacity:0;animation:ringfade .9s ease 1.7s both}
+.intro .ibrand{margin-top:34px;font-family:var(--sans);font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:#f3ede1;font-size:1rem;opacity:0;animation:ringfade .9s ease 1.7s both}
 @keyframes introout{to{opacity:0;visibility:hidden}}
 @media(prefers-reduced-motion:reduce){.intro{animation:introout .6s ease .2s forwards}.intro .piece,.intro .ibrand{animation:none;opacity:1}}
+/* header logo：進站後組裝，滑鼠移入再組裝一次 */
+.brand .bmark{width:42px;height:42px;overflow:visible;flex-shrink:0}
+.brand .bpiece{transform-box:fill-box;transform-origin:center}
+.brand.assemble .bpiece{animation-name:asm;animation-duration:.55s;animation-timing-function:cubic-bezier(.22,.7,.2,1);animation-fill-mode:both}
+.brand.assemble .bmain{--ty:80px;--sc:.9;animation-delay:0s}
+.brand.assemble .bs1{--tx:120px;--ty:-40px;animation-delay:.1s}
+.brand.assemble .bs2{--tx:120px;--ty:-24px;animation-delay:.16s}
+.brand.assemble .bs3{--tx:120px;--ty:-8px;animation-delay:.22s}
+.brand.assemble .bsq1{--tx:-70px;--sc:0;--rot:-90deg;animation-delay:.3s}
+.brand.assemble .bsq2{--ty:80px;--sc:0;--rot:90deg;animation-delay:.36s}
+.brand.assemble .bsq3{--ty:80px;--sc:0;--rot:90deg;animation-delay:.42s}
+@media(prefers-reduced-motion:reduce){.brand.assemble .bpiece{animation:none}}

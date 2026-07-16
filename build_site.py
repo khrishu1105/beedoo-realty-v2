@@ -103,9 +103,21 @@ CSS_EXTRA = r"""
 .intro .sq1{--tx:-90px;--sc:0;--rot:-120deg;animation-delay:1s}
 .intro .sq2{--ty:90px;--sc:0;--rot:120deg;animation-delay:1.12s}
 .intro .sq3{--ty:90px;--sc:0;--rot:120deg;animation-delay:1.24s}
-.intro .ibrand{margin-top:34px;font-family:var(--serif);font-weight:700;letter-spacing:.34em;text-transform:uppercase;color:#f3ede1;font-size:1.05rem;opacity:0;animation:ringfade .9s ease 1.7s both}
+.intro .ibrand{margin-top:34px;font-family:var(--sans);font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:#f3ede1;font-size:1rem;opacity:0;animation:ringfade .9s ease 1.7s both}
 @keyframes introout{to{opacity:0;visibility:hidden}}
 @media(prefers-reduced-motion:reduce){.intro{animation:introout .6s ease .2s forwards}.intro .piece,.intro .ibrand{animation:none;opacity:1}}
+/* header logo：進站後組裝，滑鼠移入再組裝一次 */
+.brand .bmark{width:42px;height:42px;overflow:visible;flex-shrink:0}
+.brand .bpiece{transform-box:fill-box;transform-origin:center}
+.brand.assemble .bpiece{animation-name:asm;animation-duration:.55s;animation-timing-function:cubic-bezier(.22,.7,.2,1);animation-fill-mode:both}
+.brand.assemble .bmain{--ty:80px;--sc:.9;animation-delay:0s}
+.brand.assemble .bs1{--tx:120px;--ty:-40px;animation-delay:.1s}
+.brand.assemble .bs2{--tx:120px;--ty:-24px;animation-delay:.16s}
+.brand.assemble .bs3{--tx:120px;--ty:-8px;animation-delay:.22s}
+.brand.assemble .bsq1{--tx:-70px;--sc:0;--rot:-90deg;animation-delay:.3s}
+.brand.assemble .bsq2{--ty:80px;--sc:0;--rot:90deg;animation-delay:.36s}
+.brand.assemble .bsq3{--ty:80px;--sc:0;--rot:90deg;animation-delay:.42s}
+@media(prefers-reduced-motion:reduce){.brand.assemble .bpiece{animation:none}}
 """
 (ROOT / "css").mkdir(exist_ok=True)
 (ROOT / "css" / "site.css").write_text(base_css + "\n" + CSS_EXTRA, encoding="utf-8")
@@ -122,7 +134,7 @@ def header(active):
     cta_cur = ' aria-current="page"' if active=="contact.html" else ""
     return f'''<header class="top"><div class="wrap nav">
   <a class="brand" href="index.html" aria-label="貝多不動產 首頁">
-    <img src="assets/logo-mark-dark.svg" alt="貝多不動產標誌" width="42" height="42">
+    <svg class="bmark" viewBox="230 365 620 620" aria-hidden="true"><path class="bpiece bmain" fill="#545454" d="M834.96,786.76 664.06,616.67 577.96,616.29 577.96,380.1 504.72,379.79 406.11,380.2 245.52,380.2 245.52,459.26 504.78,459.26 504.9,615.76 245.52,616.53 245.52,969.23 332.74,969.23 332.74,684.65 541.15,684.52 621.19,684.85 750.58,817.01 750.28,905.73 422.81,905.73 422.81,969.23 834.96,969.23 Z"/><path class="bpiece bs1" fill="#80776D" d="M663.42,532.82 577.14,532.82 577.14,579.49 663.42,579.49 835.33,745.78 835.33,702.69 Z"/><path class="bpiece bs2" fill="#80776D" d="M663.42,456.18 577.14,456.18 577.14,502.86 663.42,502.86 835.33,669.15 835.33,626.06 Z"/><path class="bpiece bs3" fill="#80776D" d="M835.33,592.86 835.33,549.78 663.42,379.9 577.14,379.9 577.14,426.57 663.42,426.57 Z"/><rect class="bpiece bsq1" fill="#545454" x="244.27" y="505.53" width="64.65" height="64.65"/><rect class="bpiece bsq2" fill="#545454" x="421.2" y="765.52" width="64.65" height="64.65"/><rect class="bpiece bsq3" fill="#545454" x="555.29" y="765.52" width="64.65" height="64.65"/></svg>
     <span><span class="tw">貝多不動產</span><span class="en">BEEDOO REALTY</span></span>
   </a>
   <button class="burger" aria-label="開啟選單" aria-expanded="false" aria-controls="menu"><span></span></button>
@@ -155,7 +167,7 @@ FOOTER = '''<footer class="foot"><div class="wrap">
   </div>
 </div></footer>'''
 
-FONTS = '<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;500;600;700&family=Noto+Sans+TC:wght@300;400;500&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">'
+FONTS = '<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;500;600;700&family=Noto+Sans+TC:wght@300;400;500;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">'
 
 def page(fname, title, desc, active, main, extra_head=""):
     html = f'''<!doctype html>
@@ -168,7 +180,7 @@ def page(fname, title, desc, active, main, extra_head=""):
 <meta name="author" content="khrishu">
 <link rel="icon" href="assets/logo-mark-dark.svg" type="image/svg+xml"><link rel="alternate icon" href="img/logo.png" type="image/png">
 {FONTS}
-<link rel="stylesheet" href="css/site.css?v=20260716g">{extra_head}
+<link rel="stylesheet" href="css/site.css?v=20260716h">{extra_head}
 </head>
 <body>
 <a class="skip" href="#main" style="position:absolute;left:-999px">跳至主要內容</a>
@@ -177,7 +189,7 @@ def page(fname, title, desc, active, main, extra_head=""):
 {main}
 </main>
 {FOOTER}
-<script defer src="js/site.js?v=20260716g"></script>
+<script defer src="js/site.js?v=20260716h"></script>
 </body>
 </html>'''
     (ROOT / fname).write_text(html, encoding="utf-8")

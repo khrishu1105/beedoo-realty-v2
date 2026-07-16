@@ -47,6 +47,17 @@
     counts.forEach(function (e) { cio.observe(e); });
   }
 
+  // header logo 組裝：進站後播一次，滑鼠移入再播
+  var hb = document.querySelector(".top .brand");
+  if (hb && hb.querySelector(".bmark")) {
+    var playB = function () {
+      hb.classList.remove("assemble"); void hb.offsetWidth; hb.classList.add("assemble");
+    };
+    hb.addEventListener("mouseenter", playB);
+    if (document.querySelector(".intro")) setTimeout(playB, 3900); // 首頁：開場結束後才組裝
+    else playB();                                                 // 其他頁：載入即組裝
+  }
+
   // 諮詢表單（尚未接後端，先給明確回覆並引導來電來信）
   var f = document.querySelector(".cform");
   if (f) {

@@ -62,6 +62,15 @@ CSS_EXTRA = r"""
 .cform .form-result{margin-top:16px;font-weight:300;color:var(--gold-dp)}
 @media(max-width:900px){.vals{grid-template-columns:1fr;border-top:0}.val{border-left:0;padding:26px 0;border-bottom:1px solid var(--paper-line)}.val:first-child{padding-top:0}.contact-grid{grid-template-columns:1fr;gap:40px}}
 @media(max-width:760px){.page-hero{clip-path:polygon(0 0,100% 0,100% calc(100% - 30px),0 100%);padding:92px 0 66px}}
+/* 首頁 hero 旋轉品牌章（方案B：logo 正立，金環＋金點自轉） */
+.hero-emblem{position:absolute;z-index:2;top:50%;right:7%;transform:translateY(-50%);width:400px;height:400px;display:flex;align-items:center;justify-content:center;pointer-events:none}
+.hero-emblem .he-ring{position:absolute;inset:0;border:1px solid rgba(232,209,153,.4);border-radius:50%;animation:spin 30s linear infinite}
+.hero-emblem .he-ring::before{content:"";position:absolute;top:-5px;left:50%;width:9px;height:9px;margin-left:-4.5px;background:var(--gold-lt);border-radius:50%;box-shadow:0 0 12px rgba(232,209,153,.95)}
+.hero-emblem .he-ring2{position:absolute;inset:30px;border:1px solid rgba(201,166,99,.16);border-radius:50%}
+.hero-emblem img{width:150px;height:150px;opacity:.95}
+@keyframes spin{to{transform:rotate(360deg)}}
+@media(prefers-reduced-motion:reduce){.hero-emblem .he-ring{animation:none}}
+@media(max-width:1040px){.hero-emblem{display:none}}
 """
 (ROOT / "css").mkdir(exist_ok=True)
 (ROOT / "css" / "site.css").write_text(base_css + "\n" + CSS_EXTRA, encoding="utf-8")
@@ -177,6 +186,7 @@ def media(img, alt, eyebrow, h2, paras, checks=None, link=None, reverse=False):
 # ---------- 首頁 ----------
 INDEX_MAIN = '''<section class="hero">
   <img class="hero-img" src="img/hero.jpg" alt="現代都市摩天大樓群仰視景觀">
+  <div class="hero-emblem" aria-hidden="true"><div class="he-ring"></div><div class="he-ring2"></div><img src="assets/logo-mark-light.svg" alt=""></div>
   <div class="wrap">
     <span class="eyebrow on-dark">Beedoo Realty ・ 不動產整合顧問</span>
     <h1>從一塊土地到一座家園<br><span class="g">貝多</span>陪您看得更遠</h1>

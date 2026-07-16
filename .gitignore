@@ -1,2 +1,6 @@
 .DS_Store
 _preview*.html
+
+# 內部實驗頁不部署
+brand-demo.html
+spin-options.html

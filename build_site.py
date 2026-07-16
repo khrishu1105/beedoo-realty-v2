@@ -70,7 +70,7 @@ CSS_EXTRA = r"""
 .hero-emblem img{width:150px;height:150px;opacity:.95}
 @keyframes spin{to{transform:rotate(360deg)}}
 @media(prefers-reduced-motion:reduce){.hero-emblem .he-ring{animation:none}}
-@media(max-width:1040px){.hero-emblem{display:none}}
+@media(max-width:1040px){.hero{flex-direction:column;justify-content:center}.hero-emblem{position:static;transform:none;width:150px;height:150px;margin:36px auto 4px}.hero-emblem img{width:58px;height:58px}}
 """
 (ROOT / "css").mkdir(exist_ok=True)
 (ROOT / "css" / "site.css").write_text(base_css + "\n" + CSS_EXTRA, encoding="utf-8")

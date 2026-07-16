@@ -81,6 +81,17 @@ CSS_EXTRA = r"""
 @keyframes spin{to{transform:rotate(360deg)}}
 @media(prefers-reduced-motion:reduce){.hero-emblem .piece,.hero-emblem .he-ring,.hero-emblem .he-ring2{animation:none;opacity:1}}
 @media(max-width:1040px){.hero{flex-direction:column;justify-content:center}.hero-emblem{position:static;transform:none;width:164px;height:164px;margin:36px auto 4px}}
+/* 頂部聯絡列 */
+.topbar{background:var(--ink);color:#c3cdd8}
+.topbar .wrap{display:flex;align-items:center;justify-content:space-between;height:40px}
+.topbar .tb-l{font-weight:300;font-size:.82rem;letter-spacing:.06em;color:#9fb0c0}
+.topbar .tb-r{display:flex;align-items:center;gap:16px;font-size:.82rem;letter-spacing:.05em}
+.topbar a{color:#c9d2dc}.topbar a:hover{color:var(--gold-lt)}
+.topbar .tb-div{width:1px;height:14px;background:rgba(201,166,99,.5)}
+/* 圖片統一色調 */
+.media-fig img,.proj-img img{filter:saturate(.92) contrast(1.02)}
+@media(max-width:820px){.topbar .tb-l{display:none}.topbar .wrap{justify-content:center}}
+@media(max-width:480px){.topbar .tb-r{gap:10px;font-size:.76rem}}
 """
 (ROOT / "css").mkdir(exist_ok=True)
 (ROOT / "css" / "site.css").write_text(base_css + "\n" + CSS_EXTRA, encoding="utf-8")
@@ -95,7 +106,15 @@ def header(active):
         cur = ' aria-current="page"' if href==active else ""
         items += f'<li><a href="{href}"{cur}>{label}</a></li>\n    '
     cta_cur = ' aria-current="page"' if active=="contact.html" else ""
-    return f'''<header class="top"><div class="wrap nav">
+    return f'''<div class="topbar"><div class="wrap">
+  <div class="tb-l">服務區域　新北 · 台北 · 桃園　—　大台北地區</div>
+  <div class="tb-r">
+    <a href="tel:+886226005619">電話　02-2600-5619</a>
+    <span class="tb-div"></span>
+    <a href="https://www.instagram.com/beido.realty/" target="_blank" rel="noopener">Instagram　@beido.realty</a>
+  </div>
+</div></div>
+<header class="top"><div class="wrap nav">
   <a class="brand" href="index.html" aria-label="貝多不動產 首頁">
     <img src="assets/logo-mark-dark.svg" alt="貝多不動產標誌" width="42" height="42">
     <span><span class="tw">貝多不動產</span><span class="en">BEEDOO REALTY</span></span>
@@ -141,9 +160,9 @@ def page(fname, title, desc, active, main, extra_head=""):
 <title>{title}</title>
 <meta name="description" content="{desc}">
 <meta name="author" content="khrishu">
-<link rel="icon" href="img/logo.png" type="image/png">
+<link rel="icon" href="assets/logo-mark-dark.svg" type="image/svg+xml"><link rel="alternate icon" href="img/logo.png" type="image/png">
 {FONTS}
-<link rel="stylesheet" href="css/site.css?v=20260716c">{extra_head}
+<link rel="stylesheet" href="css/site.css?v=20260716d">{extra_head}
 </head>
 <body>
 <a class="skip" href="#main" style="position:absolute;left:-999px">跳至主要內容</a>
@@ -152,7 +171,7 @@ def page(fname, title, desc, active, main, extra_head=""):
 {main}
 </main>
 {FOOTER}
-<script defer src="js/site.js?v=20260716c"></script>
+<script defer src="js/site.js?v=20260716d"></script>
 </body>
 </html>'''
     (ROOT / fname).write_text(html, encoding="utf-8")
@@ -209,8 +228,8 @@ INDEX_MAIN = '''<section class="hero">
   </div>
 </section>
 <section class="sec sec-paper" style="padding:78px 0"><div class="wrap"><div class="stats">
-  <div class="stat reveal"><div class="n">20<em>年</em></div><div class="l">不動產代銷經驗</div></div>
-  <div class="stat reveal"><div class="n">5<em>大</em></div><div class="l">核心專業領域</div></div>
+  <div class="stat reveal"><div class="n"><span class="count" data-to="20">0</span><em>年</em></div><div class="l">不動產代銷經驗</div></div>
+  <div class="stat reveal"><div class="n"><span class="count" data-to="5">0</span><em>大</em></div><div class="l">核心專業領域</div></div>
   <div class="stat reveal"><div class="n">2026</div><div class="l">最新服務個案</div></div>
   <div class="stat reveal"><div class="n">全程</div><div class="l">一站式整合服務</div></div>
 </div></div></section>

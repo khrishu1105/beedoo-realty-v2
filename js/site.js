@@ -27,6 +27,26 @@
   } else {
     r.forEach(function (e) { e.classList.add("in"); });
   }
+  // 數據數字滾動（捲到時從 0 跑到目標值）
+  var counts = document.querySelectorAll(".count");
+  if ("IntersectionObserver" in window && counts.length) {
+    var cio = new IntersectionObserver(function (es) {
+      es.forEach(function (e) {
+        if (!e.isIntersecting) return;
+        var el = e.target, to = parseInt(el.getAttribute("data-to"), 10) || 0, t0 = null;
+        function tick(ts) {
+          if (!t0) t0 = ts;
+          var p = Math.min((ts - t0) / 1100, 1);
+          el.textContent = Math.round((1 - Math.pow(1 - p, 3)) * to);
+          if (p < 1) requestAnimationFrame(tick);
+        }
+        requestAnimationFrame(tick);
+        cio.unobserve(el);
+      });
+    }, { threshold: .6 });
+    counts.forEach(function (e) { cio.observe(e); });
+  }
+
   // 諮詢表單（尚未接後端，先給明確回覆並引導來電來信）
   var f = document.querySelector(".cform");
   if (f) {

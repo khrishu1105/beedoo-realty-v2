@@ -103,7 +103,7 @@ CSS_EXTRA = r"""
 .intro .sq1{--tx:-90px;--sc:0;--rot:-120deg;animation-delay:1s}
 .intro .sq2{--ty:90px;--sc:0;--rot:120deg;animation-delay:1.12s}
 .intro .sq3{--ty:90px;--sc:0;--rot:120deg;animation-delay:1.24s}
-.intro .ibrand{margin-top:32px;font-family:var(--disp);font-style:italic;letter-spacing:.44em;text-transform:uppercase;color:var(--gold);font-size:1.05rem;opacity:0;animation:ringfade .9s ease 1.7s both}
+.intro .ibrand{margin-top:34px;font-family:var(--serif);font-weight:700;letter-spacing:.34em;text-transform:uppercase;color:#f3ede1;font-size:1.05rem;opacity:0;animation:ringfade .9s ease 1.7s both}
 @keyframes introout{to{opacity:0;visibility:hidden}}
 @media(prefers-reduced-motion:reduce){.intro{animation:introout .6s ease .2s forwards}.intro .piece,.intro .ibrand{animation:none;opacity:1}}
 """
@@ -168,7 +168,7 @@ def page(fname, title, desc, active, main, extra_head=""):
 <meta name="author" content="khrishu">
 <link rel="icon" href="assets/logo-mark-dark.svg" type="image/svg+xml"><link rel="alternate icon" href="img/logo.png" type="image/png">
 {FONTS}
-<link rel="stylesheet" href="css/site.css?v=20260716f">{extra_head}
+<link rel="stylesheet" href="css/site.css?v=20260716g">{extra_head}
 </head>
 <body>
 <a class="skip" href="#main" style="position:absolute;left:-999px">跳至主要內容</a>
@@ -177,7 +177,7 @@ def page(fname, title, desc, active, main, extra_head=""):
 {main}
 </main>
 {FOOTER}
-<script defer src="js/site.js?v=20260716f"></script>
+<script defer src="js/site.js?v=20260716g"></script>
 </body>
 </html>'''
     (ROOT / fname).write_text(html, encoding="utf-8")

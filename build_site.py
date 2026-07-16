@@ -62,15 +62,25 @@ CSS_EXTRA = r"""
 .cform .form-result{margin-top:16px;font-weight:300;color:var(--gold-dp)}
 @media(max-width:900px){.vals{grid-template-columns:1fr;border-top:0}.val{border-left:0;padding:26px 0;border-bottom:1px solid var(--paper-line)}.val:first-child{padding-top:0}.contact-grid{grid-template-columns:1fr;gap:40px}}
 @media(max-width:760px){.page-hero{clip-path:polygon(0 0,100% 0,100% calc(100% - 30px),0 100%);padding:92px 0 66px}}
-/* 首頁 hero 旋轉品牌章（方案B：logo 正立，金環＋金點自轉） */
+/* 首頁 hero 品牌章：logo 構件組裝 → 金環淡入繞轉 */
 .hero-emblem{position:absolute;z-index:2;top:50%;right:7%;transform:translateY(-50%);width:400px;height:400px;display:flex;align-items:center;justify-content:center;pointer-events:none}
-.hero-emblem .he-ring{position:absolute;inset:0;border:1px solid rgba(232,209,153,.4);border-radius:50%;animation:spin 30s linear infinite}
+.hero-emblem .he-ring{position:absolute;inset:0;border:1px solid rgba(232,209,153,.4);border-radius:50%;opacity:0;animation:ringfade .8s ease 1.9s both,spin 26s linear 1.9s infinite}
 .hero-emblem .he-ring::before{content:"";position:absolute;top:-5px;left:50%;width:9px;height:9px;margin-left:-4.5px;background:var(--gold-lt);border-radius:50%;box-shadow:0 0 12px rgba(232,209,153,.95)}
-.hero-emblem .he-ring2{position:absolute;inset:30px;border:1px solid rgba(201,166,99,.16);border-radius:50%}
-.hero-emblem img{width:150px;height:150px;opacity:.95}
+.hero-emblem .he-ring2{position:absolute;inset:26px;border:1px solid rgba(201,166,99,.15);border-radius:50%;opacity:0;animation:ringfade .8s ease 2s both}
+.hero-emblem .logo-mark{width:66%;height:66%;overflow:visible}
+.hero-emblem .piece{transform-box:fill-box;transform-origin:center;animation-name:asm;animation-duration:1s;animation-timing-function:cubic-bezier(.22,.7,.2,1);animation-fill-mode:both}
+.hero-emblem .main{--ty:60px;--sc:.96;animation-delay:.1s}
+.hero-emblem .s1{--tx:100px;--ty:-34px;animation-delay:.42s}
+.hero-emblem .s2{--tx:100px;--ty:-20px;animation-delay:.52s}
+.hero-emblem .s3{--tx:100px;--ty:-6px;animation-delay:.62s}
+.hero-emblem .sq1{--tx:-60px;--sc:0;--rot:-90deg;animation-delay:.8s}
+.hero-emblem .sq2{--ty:60px;--sc:0;--rot:90deg;animation-delay:.9s}
+.hero-emblem .sq3{--ty:60px;--sc:0;--rot:90deg;animation-delay:1s}
+@keyframes asm{from{opacity:0;transform:translate(var(--tx,0),var(--ty,0)) scale(var(--sc,1)) rotate(var(--rot,0deg))}to{opacity:1;transform:translate(0,0) scale(1) rotate(0)}}
+@keyframes ringfade{from{opacity:0}to{opacity:1}}
 @keyframes spin{to{transform:rotate(360deg)}}
-@media(prefers-reduced-motion:reduce){.hero-emblem .he-ring{animation:none}}
-@media(max-width:1040px){.hero{flex-direction:column;justify-content:center}.hero-emblem{position:static;transform:none;width:150px;height:150px;margin:36px auto 4px}.hero-emblem img{width:58px;height:58px}}
+@media(prefers-reduced-motion:reduce){.hero-emblem .piece,.hero-emblem .he-ring,.hero-emblem .he-ring2{animation:none;opacity:1}}
+@media(max-width:1040px){.hero{flex-direction:column;justify-content:center}.hero-emblem{position:static;transform:none;width:164px;height:164px;margin:36px auto 4px}}
 """
 (ROOT / "css").mkdir(exist_ok=True)
 (ROOT / "css" / "site.css").write_text(base_css + "\n" + CSS_EXTRA, encoding="utf-8")
@@ -133,7 +143,7 @@ def page(fname, title, desc, active, main, extra_head=""):
 <meta name="author" content="khrishu">
 <link rel="icon" href="img/logo.png" type="image/png">
 {FONTS}
-<link rel="stylesheet" href="css/site.css?v=20260716b">{extra_head}
+<link rel="stylesheet" href="css/site.css?v=20260716c">{extra_head}
 </head>
 <body>
 <a class="skip" href="#main" style="position:absolute;left:-999px">跳至主要內容</a>
@@ -142,7 +152,7 @@ def page(fname, title, desc, active, main, extra_head=""):
 {main}
 </main>
 {FOOTER}
-<script defer src="js/site.js?v=20260716b"></script>
+<script defer src="js/site.js?v=20260716c"></script>
 </body>
 </html>'''
     (ROOT / fname).write_text(html, encoding="utf-8")
@@ -186,7 +196,7 @@ def media(img, alt, eyebrow, h2, paras, checks=None, link=None, reverse=False):
 # ---------- 首頁 ----------
 INDEX_MAIN = '''<section class="hero">
   <img class="hero-img" src="img/hero.jpg" alt="現代都市摩天大樓群仰視景觀">
-  <div class="hero-emblem" aria-hidden="true"><div class="he-ring"></div><div class="he-ring2"></div><img src="assets/logo-mark-light.svg" alt=""></div>
+  <div class="hero-emblem" aria-hidden="true"><div class="he-ring2"></div><div class="he-ring"></div><svg class="logo-mark" viewBox="230 365 620 620" aria-hidden="true"><path class="piece main" fill="#EEECE7" d="M834.96,786.76 664.06,616.67 577.96,616.29 577.96,380.1 504.72,379.79 406.11,380.2 245.52,380.2 245.52,459.26 504.78,459.26 504.9,615.76 245.52,616.53 245.52,969.23 332.74,969.23 332.74,684.65 541.15,684.52 621.19,684.85 750.58,817.01 750.28,905.73 422.81,905.73 422.81,969.23 834.96,969.23 Z"/><path class="piece s1" fill="#C7C1B6" d="M663.42,532.82 577.14,532.82 577.14,579.49 663.42,579.49 835.33,745.78 835.33,702.69 Z"/><path class="piece s2" fill="#C7C1B6" d="M663.42,456.18 577.14,456.18 577.14,502.86 663.42,502.86 835.33,669.15 835.33,626.06 Z"/><path class="piece s3" fill="#C7C1B6" d="M835.33,592.86 835.33,549.78 663.42,379.9 577.14,379.9 577.14,426.57 663.42,426.57 Z"/><rect class="piece sq1" fill="#EEECE7" x="244.27" y="505.53" width="64.65" height="64.65"/><rect class="piece sq2" fill="#EEECE7" x="421.2" y="765.52" width="64.65" height="64.65"/><rect class="piece sq3" fill="#EEECE7" x="555.29" y="765.52" width="64.65" height="64.65"/></svg></div>
   <div class="wrap">
     <span class="eyebrow on-dark">Beedoo Realty ・ 不動產整合顧問</span>
     <h1>從一塊土地到一座家園<br><span class="g">貝多</span>陪您看得更遠</h1>

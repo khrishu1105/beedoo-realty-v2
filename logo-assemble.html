@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>貝多｜logo 組裝＋旋轉特效示範</title>
+<meta name="author" content="khrishu">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@500;600&family=Cormorant+Garamond:ital,wght@0,500;1,400&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#122238;--ink-2:#0d1a2b;--navy:#24395a;--gold:#c9a663;--gold-lt:#e8d199;
+  --serif:"Noto Serif TC",serif;--disp:"Cormorant Garamond",serif}
+*{box-sizing:border-box;margin:0;padding:0}
+body{min-height:100vh;background:linear-gradient(160deg,var(--ink-2),var(--navy));color:#f3ede1;
+  font-family:var(--serif);display:flex;flex-direction:column;align-items:center;justify-content:center;
+  padding:50px 20px;position:relative;overflow:hidden}
+body::before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 50% 40%,rgba(201,166,99,.16),transparent 55%);pointer-events:none}
+
+.stage{position:relative;z-index:2;text-align:center}
+.emblem{position:relative;width:300px;height:300px;margin:0 auto;display:flex;align-items:center;justify-content:center}
+
+/* 金環（組裝完成後淡入並繞轉） */
+.emblem-ring{position:absolute;inset:-26px;border:1px solid rgba(232,209,153,.42);border-radius:50%;opacity:1}
+.emblem-ring::before{content:"";position:absolute;top:-5px;left:50%;width:9px;height:9px;margin-left:-4.5px;
+  background:var(--gold-lt);border-radius:50%;box-shadow:0 0 12px rgba(232,209,153,.95)}
+.emblem-ring2{position:absolute;inset:4px;border:1px solid rgba(201,166,99,.15);border-radius:50%;opacity:1}
+
+.logo{width:300px;height:300px;overflow:visible}
+.piece{transform-box:fill-box;transform-origin:center;opacity:1}
+
+/* ===== 加了 .assembling 才播放：組裝 → 金環淡入 → 金環繞轉 ===== */
+.assembling .piece{animation-name:asm;animation-duration:1s;animation-timing-function:cubic-bezier(.22,.7,.2,1);animation-fill-mode:both}
+@keyframes asm{
+  from{opacity:0;transform:translate(var(--tx,0),var(--ty,0)) scale(var(--sc,1)) rotate(var(--rot,0deg))}
+  to{opacity:1;transform:translate(0,0) scale(1) rotate(0)}
+}
+.main{--ty:78px;--sc:.96}         .assembling .main{animation-delay:.05s}
+.s1{--tx:120px;--ty:-40px}        .assembling .s1{animation-delay:.42s}
+.s2{--tx:120px;--ty:-24px}        .assembling .s2{animation-delay:.52s}
+.s3{--tx:120px;--ty:-8px}         .assembling .s3{animation-delay:.62s}
+.sq1{--tx:-70px;--sc:0;--rot:-90deg}  .assembling .sq1{animation-delay:.80s}
+.sq2{--ty:70px;--sc:0;--rot:90deg}    .assembling .sq2{animation-delay:.90s}
+.sq3{--ty:70px;--sc:0;--rot:90deg}    .assembling .sq3{animation-delay:1s}
+
+/* 金環：組裝完成(約2s)後淡入，並開始無限繞轉 */
+.assembling .emblem-ring{opacity:0;animation:ringfade .8s ease 1.9s both, spin 24s linear 1.9s infinite}
+.assembling .emblem-ring2{opacity:0;animation:ringfade .8s ease 2s both}
+@keyframes ringfade{from{opacity:0}to{opacity:1}}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+.brand{margin-top:38px;opacity:1}
+.assembling .brand{opacity:0;animation:fadeup .9s ease 2.15s forwards}
+@keyframes fadeup{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+.brand .tw{font-family:var(--serif);font-weight:600;font-size:2rem;letter-spacing:.14em;color:#fbf7ee}
+.brand .en{font-family:var(--disp);font-style:italic;letter-spacing:.42em;text-transform:uppercase;color:var(--gold);font-size:.95rem;margin-top:10px;padding-left:.42em}
+
+.replay{margin-top:46px;position:relative;z-index:2;font-family:var(--disp);font-style:italic;letter-spacing:.14em;
+  background:transparent;color:var(--gold-lt);border:1px solid rgba(201,166,99,.4);padding:11px 26px;cursor:pointer;font-size:1rem;transition:.25s}
+.replay:hover{background:rgba(201,166,99,.12)}
+.tip{position:absolute;bottom:24px;left:0;right:0;text-align:center;z-index:2;font-family:var(--disp);font-style:italic;letter-spacing:.16em;color:rgba(243,237,225,.55);font-size:.86rem}
+@media(prefers-reduced-motion:reduce){.assembling .piece,.assembling .brand,.assembling .emblem-ring,.assembling .emblem-ring2{animation:none;opacity:1;transform:none}}
+</style>
+</head>
+<body>
+<div class="stage assembling">
+  <div class="emblem">
+    <div class="emblem-ring2"></div>
+    <div class="emblem-ring"></div>
+    <svg class="logo" viewBox="230 365 620 620" role="img" aria-label="貝多不動產標誌組裝動畫">
+      <path class="piece main" fill="#EEECE7" d="M834.96,786.76 664.06,616.67 577.96,616.29 577.96,380.1 504.72,379.79 406.11,380.2 245.52,380.2 245.52,459.26 504.78,459.26 504.9,615.76 245.52,616.53 245.52,969.23 332.74,969.23 332.74,684.65 541.15,684.52 621.19,684.85 750.58,817.01 750.28,905.73 422.81,905.73 422.81,969.23 834.96,969.23 Z"/>
+      <path class="piece s1" fill="#C7C1B6" d="M663.42,532.82 577.14,532.82 577.14,579.49 663.42,579.49 835.33,745.78 835.33,702.69 Z"/>
+      <path class="piece s2" fill="#C7C1B6" d="M663.42,456.18 577.14,456.18 577.14,502.86 663.42,502.86 835.33,669.15 835.33,626.06 Z"/>
+      <path class="piece s3" fill="#C7C1B6" d="M835.33,592.86 835.33,549.78 663.42,379.9 577.14,379.9 577.14,426.57 663.42,426.57 Z"/>
+      <rect class="piece sq1" fill="#EEECE7" x="244.27" y="505.53" width="64.65" height="64.65"/>
+      <rect class="piece sq2" fill="#EEECE7" x="421.2" y="765.52" width="64.65" height="64.65"/>
+      <rect class="piece sq3" fill="#EEECE7" x="555.29" y="765.52" width="64.65" height="64.65"/>
+    </svg>
+  </div>
+  <div class="brand"><div class="tw">貝多不動產</div><div class="en">Beedoo Realty</div></div>
+</div>
+<button class="replay" onclick="replay()">↻ 重播組裝</button>
+<div class="tip">— 7 構件飛入組裝 → 金環淡入繞轉 · 點「重播」再看一次 —</div>
+<script>
+function replay(){
+  var s=document.querySelector('.stage');
+  s.classList.remove('assembling'); void s.offsetWidth; s.classList.add('assembling');
+}
+</script>
+</body>
+</html>

@@ -92,6 +92,20 @@ CSS_EXTRA = r"""
 .media-fig img,.proj-img img{filter:saturate(.92) contrast(1.02)}
 @media(max-width:820px){.topbar .tb-l{display:none}.topbar .wrap{justify-content:center}}
 @media(max-width:480px){.topbar .tb-r{gap:10px;font-size:.76rem}}
+/* 開場動畫：全螢幕大 logo 組裝 → 黑幕淡出 */
+.intro{position:fixed;inset:0;z-index:9999;display:flex;flex-direction:column;align-items:center;justify-content:center;background:#0a0f16;animation:introout 1.2s ease 2.7s forwards}
+.intro .imark{width:min(48vw,360px);height:min(48vw,360px);overflow:visible}
+.intro .piece{transform-box:fill-box;transform-origin:center;animation-name:asm;animation-duration:1.1s;animation-timing-function:cubic-bezier(.22,.7,.2,1);animation-fill-mode:both}
+.intro .main{--ty:120px;--sc:.94;animation-delay:.15s}
+.intro .s1{--tx:160px;--ty:-52px;animation-delay:.55s}
+.intro .s2{--tx:160px;--ty:-32px;animation-delay:.68s}
+.intro .s3{--tx:160px;--ty:-12px;animation-delay:.81s}
+.intro .sq1{--tx:-90px;--sc:0;--rot:-120deg;animation-delay:1s}
+.intro .sq2{--ty:90px;--sc:0;--rot:120deg;animation-delay:1.12s}
+.intro .sq3{--ty:90px;--sc:0;--rot:120deg;animation-delay:1.24s}
+.intro .ibrand{margin-top:32px;font-family:var(--disp);font-style:italic;letter-spacing:.44em;text-transform:uppercase;color:var(--gold);font-size:1.05rem;opacity:0;animation:ringfade .9s ease 1.7s both}
+@keyframes introout{to{opacity:0;visibility:hidden}}
+@media(prefers-reduced-motion:reduce){.intro{animation:introout .6s ease .2s forwards}.intro .piece,.intro .ibrand{animation:none;opacity:1}}
 """
 (ROOT / "css").mkdir(exist_ok=True)
 (ROOT / "css" / "site.css").write_text(base_css + "\n" + CSS_EXTRA, encoding="utf-8")
@@ -154,7 +168,7 @@ def page(fname, title, desc, active, main, extra_head=""):
 <meta name="author" content="khrishu">
 <link rel="icon" href="assets/logo-mark-dark.svg" type="image/svg+xml"><link rel="alternate icon" href="img/logo.png" type="image/png">
 {FONTS}
-<link rel="stylesheet" href="css/site.css?v=20260716e">{extra_head}
+<link rel="stylesheet" href="css/site.css?v=20260716f">{extra_head}
 </head>
 <body>
 <a class="skip" href="#main" style="position:absolute;left:-999px">跳至主要內容</a>
@@ -163,7 +177,7 @@ def page(fname, title, desc, active, main, extra_head=""):
 {main}
 </main>
 {FOOTER}
-<script defer src="js/site.js?v=20260716e"></script>
+<script defer src="js/site.js?v=20260716f"></script>
 </body>
 </html>'''
     (ROOT / fname).write_text(html, encoding="utf-8")
@@ -205,7 +219,11 @@ def media(img, alt, eyebrow, h2, paras, checks=None, link=None, reverse=False):
 # ================= 各頁 main =================
 
 # ---------- 首頁 ----------
-INDEX_MAIN = '''<section class="hero">
+INDEX_MAIN = '''<div class="intro" aria-hidden="true">
+  <svg class="imark" viewBox="230 365 620 620"><path class="piece main" fill="#EEECE7" d="M834.96,786.76 664.06,616.67 577.96,616.29 577.96,380.1 504.72,379.79 406.11,380.2 245.52,380.2 245.52,459.26 504.78,459.26 504.9,615.76 245.52,616.53 245.52,969.23 332.74,969.23 332.74,684.65 541.15,684.52 621.19,684.85 750.58,817.01 750.28,905.73 422.81,905.73 422.81,969.23 834.96,969.23 Z"/><path class="piece s1" fill="#C7C1B6" d="M663.42,532.82 577.14,532.82 577.14,579.49 663.42,579.49 835.33,745.78 835.33,702.69 Z"/><path class="piece s2" fill="#C7C1B6" d="M663.42,456.18 577.14,456.18 577.14,502.86 663.42,502.86 835.33,669.15 835.33,626.06 Z"/><path class="piece s3" fill="#C7C1B6" d="M835.33,592.86 835.33,549.78 663.42,379.9 577.14,379.9 577.14,426.57 663.42,426.57 Z"/><rect class="piece sq1" fill="#EEECE7" x="244.27" y="505.53" width="64.65" height="64.65"/><rect class="piece sq2" fill="#EEECE7" x="421.2" y="765.52" width="64.65" height="64.65"/><rect class="piece sq3" fill="#EEECE7" x="555.29" y="765.52" width="64.65" height="64.65"/></svg>
+  <div class="ibrand">Beedoo Realty</div>
+</div>
+<section class="hero">
   <img class="hero-img" src="img/hero.jpg" alt="現代都市摩天大樓群仰視景觀">
   <div class="hero-emblem" aria-hidden="true"><div class="he-ring2"></div><div class="he-ring"></div><svg class="logo-mark" viewBox="230 365 620 620" aria-hidden="true"><path class="piece main" fill="#EEECE7" d="M834.96,786.76 664.06,616.67 577.96,616.29 577.96,380.1 504.72,379.79 406.11,380.2 245.52,380.2 245.52,459.26 504.78,459.26 504.9,615.76 245.52,616.53 245.52,969.23 332.74,969.23 332.74,684.65 541.15,684.52 621.19,684.85 750.58,817.01 750.28,905.73 422.81,905.73 422.81,969.23 834.96,969.23 Z"/><path class="piece s1" fill="#C7C1B6" d="M663.42,532.82 577.14,532.82 577.14,579.49 663.42,579.49 835.33,745.78 835.33,702.69 Z"/><path class="piece s2" fill="#C7C1B6" d="M663.42,456.18 577.14,456.18 577.14,502.86 663.42,502.86 835.33,669.15 835.33,626.06 Z"/><path class="piece s3" fill="#C7C1B6" d="M835.33,592.86 835.33,549.78 663.42,379.9 577.14,379.9 577.14,426.57 663.42,426.57 Z"/><rect class="piece sq1" fill="#EEECE7" x="244.27" y="505.53" width="64.65" height="64.65"/><rect class="piece sq2" fill="#EEECE7" x="421.2" y="765.52" width="64.65" height="64.65"/><rect class="piece sq3" fill="#EEECE7" x="555.29" y="765.52" width="64.65" height="64.65"/></svg></div>
   <div class="wrap">

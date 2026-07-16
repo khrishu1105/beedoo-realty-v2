@@ -133,7 +133,7 @@ def page(fname, title, desc, active, main, extra_head=""):
 <meta name="author" content="khrishu">
 <link rel="icon" href="img/logo.png" type="image/png">
 {FONTS}
-<link rel="stylesheet" href="css/site.css">{extra_head}
+<link rel="stylesheet" href="css/site.css?v=20260716b">{extra_head}
 </head>
 <body>
 <a class="skip" href="#main" style="position:absolute;left:-999px">跳至主要內容</a>
@@ -142,7 +142,7 @@ def page(fname, title, desc, active, main, extra_head=""):
 {main}
 </main>
 {FOOTER}
-<script defer src="js/site.js"></script>
+<script defer src="js/site.js?v=20260716b"></script>
 </body>
 </html>'''
     (ROOT / fname).write_text(html, encoding="utf-8")

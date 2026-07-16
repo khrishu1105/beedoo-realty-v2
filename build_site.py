@@ -106,15 +106,7 @@ def header(active):
         cur = ' aria-current="page"' if href==active else ""
         items += f'<li><a href="{href}"{cur}>{label}</a></li>\n    '
     cta_cur = ' aria-current="page"' if active=="contact.html" else ""
-    return f'''<div class="topbar"><div class="wrap">
-  <div class="tb-l">服務區域　新北 · 台北 · 桃園　—　大台北地區</div>
-  <div class="tb-r">
-    <a href="tel:+886226005619">電話　02-2600-5619</a>
-    <span class="tb-div"></span>
-    <a href="https://www.instagram.com/beido.realty/" target="_blank" rel="noopener">Instagram　@beido.realty</a>
-  </div>
-</div></div>
-<header class="top"><div class="wrap nav">
+    return f'''<header class="top"><div class="wrap nav">
   <a class="brand" href="index.html" aria-label="貝多不動產 首頁">
     <img src="assets/logo-mark-dark.svg" alt="貝多不動產標誌" width="42" height="42">
     <span><span class="tw">貝多不動產</span><span class="en">BEEDOO REALTY</span></span>
@@ -162,7 +154,7 @@ def page(fname, title, desc, active, main, extra_head=""):
 <meta name="author" content="khrishu">
 <link rel="icon" href="assets/logo-mark-dark.svg" type="image/svg+xml"><link rel="alternate icon" href="img/logo.png" type="image/png">
 {FONTS}
-<link rel="stylesheet" href="css/site.css?v=20260716d">{extra_head}
+<link rel="stylesheet" href="css/site.css?v=20260716e">{extra_head}
 </head>
 <body>
 <a class="skip" href="#main" style="position:absolute;left:-999px">跳至主要內容</a>
@@ -171,7 +163,7 @@ def page(fname, title, desc, active, main, extra_head=""):
 {main}
 </main>
 {FOOTER}
-<script defer src="js/site.js?v=20260716d"></script>
+<script defer src="js/site.js?v=20260716e"></script>
 </body>
 </html>'''
     (ROOT / fname).write_text(html, encoding="utf-8")

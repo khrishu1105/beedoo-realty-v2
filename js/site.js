@@ -58,6 +58,14 @@
     else playB();                                                 // 其他頁：載入即組裝
   }
 
+  // hero 大品牌章：滑鼠移入重新組裝（金環照常轉）
+  var emb = document.querySelector(".hero-emblem");
+  if (emb && emb.querySelector(".piece")) {
+    emb.addEventListener("mouseenter", function () {
+      emb.classList.remove("assemble"); void emb.offsetWidth; emb.classList.add("assemble");
+    });
+  }
+
   // 諮詢表單（尚未接後端，先給明確回覆並引導來電來信）
   var f = document.querySelector(".cform");
   if (f) {

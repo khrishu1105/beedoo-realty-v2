@@ -254,12 +254,13 @@ p{margin:0 0 1.2em}
 @media(max-width:900px){.vals{grid-template-columns:1fr;border-top:0}.val{border-left:0;padding:26px 0;border-bottom:1px solid var(--paper-line)}.val:first-child{padding-top:0}.contact-grid{grid-template-columns:1fr;gap:40px}}
 @media(max-width:760px){.page-hero{clip-path:polygon(0 0,100% 0,100% calc(100% - 30px),0 100%);padding:92px 0 66px}}
 /* 首頁 hero 品牌章：logo 構件組裝 → 金環淡入繞轉 */
-.hero-emblem{position:absolute;z-index:2;top:50%;right:7%;transform:translateY(-50%);width:400px;height:400px;display:flex;align-items:center;justify-content:center;pointer-events:none}
+.hero-emblem{position:absolute;z-index:2;top:50%;right:7%;transform:translateY(-50%);width:400px;height:400px;display:flex;align-items:center;justify-content:center;pointer-events:auto;cursor:default}
 .hero-emblem .he-ring{position:absolute;inset:0;border:1px solid rgba(232,209,153,.4);border-radius:50%;opacity:0;animation:ringfade .8s ease 1.9s both,spin 26s linear 1.9s infinite}
 .hero-emblem .he-ring::before{content:"";position:absolute;top:-5px;left:50%;width:9px;height:9px;margin-left:-4.5px;background:var(--gold-lt);border-radius:50%;box-shadow:0 0 12px rgba(232,209,153,.95)}
 .hero-emblem .he-ring2{position:absolute;inset:26px;border:1px solid rgba(201,166,99,.15);border-radius:50%;opacity:0;animation:ringfade .8s ease 2s both}
 .hero-emblem .logo-mark{width:66%;height:66%;overflow:visible}
-.hero-emblem .piece{transform-box:fill-box;transform-origin:center;animation-name:asm;animation-duration:1s;animation-timing-function:cubic-bezier(.22,.7,.2,1);animation-fill-mode:both}
+.hero-emblem .piece{transform-box:fill-box;transform-origin:center}
+.hero-emblem.assemble .piece{animation-name:asm;animation-duration:1s;animation-timing-function:cubic-bezier(.22,.7,.2,1);animation-fill-mode:both}
 .hero-emblem .main{--ty:60px;--sc:.96;animation-delay:.1s}
 .hero-emblem .s1{--tx:100px;--ty:-34px;animation-delay:.42s}
 .hero-emblem .s2{--tx:100px;--ty:-20px;animation-delay:.52s}

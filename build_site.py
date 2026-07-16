@@ -63,7 +63,7 @@ CSS_EXTRA = r"""
 @media(max-width:900px){.vals{grid-template-columns:1fr;border-top:0}.val{border-left:0;padding:26px 0;border-bottom:1px solid var(--paper-line)}.val:first-child{padding-top:0}.contact-grid{grid-template-columns:1fr;gap:40px}}
 @media(max-width:760px){.page-hero{clip-path:polygon(0 0,100% 0,100% calc(100% - 30px),0 100%);padding:92px 0 66px}}
 /* 首頁 hero 品牌章：logo 構件組裝 → 金環淡入繞轉 */
-.hero-emblem{position:absolute;z-index:2;top:50%;right:7%;transform:translateY(-50%);width:400px;height:400px;display:flex;align-items:center;justify-content:center;pointer-events:auto;cursor:default}
+.hero-emblem{position:absolute;z-index:3;top:50%;right:7%;transform:translateY(-50%);width:400px;height:400px;display:flex;align-items:center;justify-content:center;pointer-events:auto;cursor:default}
 .hero-emblem .he-ring{position:absolute;inset:0;border:1px solid rgba(232,209,153,.4);border-radius:50%;opacity:0;animation:ringfade .8s ease 1.9s both,spin 26s linear 1.9s infinite}
 .hero-emblem .he-ring::before{content:"";position:absolute;top:-5px;left:50%;width:9px;height:9px;margin-left:-4.5px;background:var(--gold-lt);border-radius:50%;box-shadow:0 0 12px rgba(232,209,153,.95)}
 .hero-emblem .he-ring2{position:absolute;inset:26px;border:1px solid rgba(201,166,99,.15);border-radius:50%;opacity:0;animation:ringfade .8s ease 2s both}
@@ -181,7 +181,7 @@ def page(fname, title, desc, active, main, extra_head=""):
 <meta name="author" content="khrishu">
 <link rel="icon" href="assets/logo-mark-dark.svg" type="image/svg+xml"><link rel="alternate icon" href="img/logo.png" type="image/png">
 {FONTS}
-<link rel="stylesheet" href="css/site.css?v=20260716i">{extra_head}
+<link rel="stylesheet" href="css/site.css?v=20260716j">{extra_head}
 </head>
 <body>
 <a class="skip" href="#main" style="position:absolute;left:-999px">跳至主要內容</a>
@@ -190,7 +190,7 @@ def page(fname, title, desc, active, main, extra_head=""):
 {main}
 </main>
 {FOOTER}
-<script defer src="js/site.js?v=20260716i"></script>
+<script defer src="js/site.js?v=20260716j"></script>
 </body>
 </html>'''
     (ROOT / fname).write_text(html, encoding="utf-8")
